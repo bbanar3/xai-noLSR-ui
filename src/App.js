@@ -3,7 +3,7 @@ import './App.css';
 import ReactCursorPosition, { INTERACTIONS } from 'react-cursor-position';
 import pad_image_1 from "./color_2d_plot1.png";
 import pad_image_2 from "./color_2d_plot2.png";
-import image_architecture from "./figure_with_LSR.png";
+import image_architecture from "./figure_without_LSR.png";
 import ReactAudioPlayer from 'react-audio-player';
 import { ImageBackground, Text, TextPropTypes} from "react-native";
 import { useState, useEffect } from 'react';
