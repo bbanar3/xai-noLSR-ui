@@ -1,0 +1,257 @@
+.pad1 {
+  position: fixed;
+  /* top: 350px;
+  left: 600px;
+  width: 300px;
+  height: 300px; */
+  padding: 4px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border 0.2s ease-in-out;
+}
+
+.pad1:hover {
+  border-color: #337ab7;
+}
+
+/* .pad1__label {
+  text-align: center;
+  font: 16px/1.5 Helvetica, Arial;
+} */
+
+.pad1_active_indicator {
+  position: fixed;
+  /* top: 300px;
+  left: 615px;
+  font: 18px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+}
+
+.pad2 {
+  position: fixed;
+  /* top: 350px;
+  left: 1000px;
+  width: 300px;
+  height: 300px; */
+  padding: 4px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border 0.2s ease-in-out;
+}
+
+.pad2:hover {
+  border-color: #337ab7;
+}
+
+/* .pad2__label {
+  text-align: center;
+  font: 16px/1.5 Helvetica, Arial;
+} */
+
+.pad2_active_indicator {
+  position: fixed;
+  /* top: 300px;
+  left: 1015px;
+  font: 18px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+}
+
+.audio_player_source {
+  position: fixed;
+  /* top: 600px;
+  left: 100px; */
+}
+
+.audio_player_generated1 {
+  position: fixed;
+  /* top: 600px;
+  left: 1500px; */
+}
+
+.audio_player_generated2 {
+  position: fixed;
+  /* top: 600px;
+  left: 1500px; */
+}
+
+.x1_label {
+  position: fixed;
+  /* top: 650px;
+  left: 640px;
+  font: 16px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+
+.y1_label {
+  position: fixed;
+  /* top: 475px;
+  left: 480px;
+  font: 16px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+  transform: rotate(-90deg);
+  text-align: center;
+  color: rgba(240, 138, 54, 0.726);
+}
+
+.x2_label {
+  position: fixed;
+  /* top: 650px;
+  left: 1060px;
+  font: 16px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+  text-align: center;
+  color: rgb(229, 233, 8);
+}
+
+.y2_label {
+  position: fixed;
+  /* top: 475px;
+  left: 860px;
+  font: 16px/1.5 Helvetica, Arial; */
+  font-weight: bold;
+  transform: rotate(-90deg);
+  text-align: center;
+  color: rgb(16, 170, 241);
+}
+
+.pad1_x0 {
+  position: fixed;
+  /* top: 640px;
+  left: 590px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad1_x1 {
+  position: fixed;
+  /* top: 640px;
+  left: 900px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad1_y1 {
+  position: fixed;
+  /* top: 320px;
+  left: 580px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad2_x0 {
+  position: fixed;
+  /* top: 640px;
+  left: 990px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad2_x1 {
+  position: fixed;
+  /* top: 640px;
+  left: 1300px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad2_y1 {
+  position: fixed;
+  /* top: 320px;
+  left: 980px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
+.image_architecture {
+  position: fixed;
+  /* top: 0px;
+  left: 500px; */
+}
+
+.text_title {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  font-weight: bold;
+}
+
+.text_latent_values_label {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  font-weight: bold;
+}
+
+.text_reference {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+}
+
+.text_signature {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+}
+
+.display_metric1 {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  color: red;
+}
+
+.display_metric2 {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  color: rgba(240, 138, 54, 0.726);
+}
+
+.display_metric3 {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  color: rgb(229, 233, 8);
+}
+
+.display_metric4 {
+  position: fixed;
+  /* top: 800px;
+  left: 400px; */
+  color: rgb(16, 170, 241);
+}
+
+.image_source_music {
+  position: fixed;
+  /* top: 370px;
+  left: -20px; */
+}
+
+.image_generated_music1 {
+  position: fixed;
+  /* top: 370px;
+  left: 1350px; */
+}
+
+.image_generated_music2 {
+  position: fixed;
+  /* top: 370px;
+  left: 1350px; */
+}
+
+.text_input {
+  position: fixed;
+  /* top: 200px;
+  left: 200px;
+  font: 32px Helvetica, Arial; */
+  font-weight: bold;
+}
+
+.text_output_variations {
+  position: fixed;
+  /* top: 200px;
+  left: 1500px;
+  font: 32px Helvetica, Arial; */
+  font-weight: bold;
+}
