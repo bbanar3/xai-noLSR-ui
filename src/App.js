@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import ReactCursorPosition, { INTERACTIONS } from 'react-cursor-position';
-import pad_image_1 from "./color_2d_plot1.png";
-import pad_image_2 from "./color_2d_plot2.png";
+import pad_image_1 from "./color_2d_plot1_without_LSR.png";
+import pad_image_2 from "./color_2d_plot2_without_LSR.png";
 import image_architecture from "./figure_without_LSR.png";
 import ReactAudioPlayer from 'react-audio-player';
 import { ImageBackground, Text, TextPropTypes} from "react-native";
@@ -10,12 +10,14 @@ import { useState, useEffect } from 'react';
 import { render } from '@testing-library/react';
 
 
+var if_LSR = false;
+
 var metric1 = 151;
 var metric2 = 151;
 var metric3 = 151;
 var metric4 = 151;
 
-var source_pianoroll_file_name = "midi_1_1_5_5.png";
+var source_pianoroll_file_name = "test_midi_original.png";
 var source_mp3_file_name = "test_midi_original.mp3";
 
 var original_page_width = 1920;
@@ -28,8 +30,8 @@ var current_page_height = 0;
 var width_scale_coeff = 0;
 var height_scale_coeff = 0;
 
-var pad1_zIndex = 1;
-var pad2_zIndex = 1;
+var pad1_opacity = 0.5;
+var pad2_opacity = 1.0;
 
 // ******************************* General Material / Big Text / Headers **********************************************
 
@@ -68,10 +70,10 @@ function DisplayMetric1(props){
                             }
 
   var metric1_quantized = Math.floor(metric1 / 30) + 1;
-  var metric1_latent_values = [3,4,5,6,7,8,9,10,11,12];
+  var metric1_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
 
   return (
-      <h1 className = 'display_metric1' style = {display_metric_1_style}> Rhy Complx:  {metric1_latent_values[metric1_quantized - 1]}</h1>
+      <h1 className = 'display_metric1' style = {display_metric_1_style}> Rhy Complx:  {(metric1_latent_values[metric1_quantized - 1] * (4 / 1.5)).toFixed(1)}</h1>
   );
 };
 
@@ -85,10 +87,10 @@ function DisplayMetric2(props){
   var metric2_quantized = Math.floor(metric2 / 30) + 1; 
   
   metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-  var metric2_latent_values = [3,4,5,6,7,8,9,10,11,12];
+  var metric2_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
 
   return (
-      <h1 className = 'display_metric2' style = {display_metric_2_style}> Note Range:  {metric2_latent_values[metric2_quantized - 1]}</h1>
+      <h1 className = 'display_metric2' style = {display_metric_2_style}> Note Range:  {metric2_latent_values[metric2_quantized - 1].toFixed(1)}</h1>
   );
 };
 
@@ -100,10 +102,10 @@ function DisplayMetric3(props){
                             }
 
   var metric3_quantized = Math.floor(metric3 / 30) + 1; 
-  var metric3_latent_values = [3,4,5,6,7,8,9,10,11,12];
+  var metric3_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
   
   return (
-      <h1 className = 'display_metric3' style = {display_metric_3_style}> Note Density:  {metric3_latent_values[metric3_quantized - 1]}</h1>
+      <h1 className = 'display_metric3' style = {display_metric_3_style}> Note Density:  {(metric3_latent_values[metric3_quantized - 1] * (2 / 1.5)).toFixed(1)}</h1>
   );
 };
 
@@ -119,10 +121,17 @@ function DisplayMetric4(props){
   
   metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
 
-  var metric4_latent_values = [3,4,5,6,7,8,9,10,11,12];
+  var metric4_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // Non LSR, from -1.5 to 1.5
+
+  if (if_LSR){
+    var scale_coeff = 8;
+  }
+  else{
+    var scale_coeff = 4.5;
+  }
 
   return (
-      <h1 className = 'display_metric4' style = {display_metric_4_style}> Avg Pitch Interval:  {metric4_latent_values[metric4_quantized - 1]}</h1>
+      <h1 className = 'display_metric4' style = {display_metric_4_style}> Avg Pitch Interval:  {(metric4_latent_values[metric4_quantized - 1] * (scale_coeff / 1.5)).toFixed(1)}</h1>
   );
 };
 
@@ -141,7 +150,7 @@ function TextInput(props){
 
 function TextOutputVariations(props){
 
-  const text_output_style = {top: (220 * props.current_height / original_page_height) + 'px', 
+  const text_output_style = {top: (250 * props.current_height / original_page_height) + 'px', 
                             left:(1400 * props.current_width / original_page_width) + 'px',
                             fontSize: (32 * props.current_width / original_page_width) + 'px',
                             zIndex: '999'
@@ -250,6 +259,8 @@ const PositionLabel1 = (props) => {
   if(isActive == true){
     metric1 = Math.floor(x / props.current_width * original_page_width);
     metric2 = Math.floor(y / props.current_width * original_page_width);
+    pad1_opacity = 1.0;
+    pad2_opacity = 0.01;
   };
 
   const pad1_background_image_style = {height: (287 * props.current_width / original_page_width) + 'px', 
@@ -261,7 +272,8 @@ const PositionLabel1 = (props) => {
   return (
     <div className="pad1__label">
       <ImageBackground source = {pad_image_1} style={pad1_background_image_style} >
-        <UpdateGenMediaPad1 current_height = {props.current_height} current_width = {props.current_width}/>
+        {/* <UpdateGenMediaPad1 current_height = {props.current_height} current_width = {props.current_width} opacity = {1.0}/>
+        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {0.0}/> */}
         <DisplayMetric1 current_height = {props.current_height} current_width = {props.current_width}/>
         <DisplayMetric2 current_height = {props.current_height} current_width = {props.current_width}/>
         <svg >
@@ -339,6 +351,8 @@ const PositionLabel2 = (props) => {
   if(isActive == true){
     metric3 = Math.floor(x / props.current_width * original_page_width);
     metric4 = Math.floor(y / props.current_width * original_page_width);
+    pad1_opacity = 0.01;
+    pad2_opacity = 1.0;
   };
 
   const pad2_background_image_style = {height: (287 * props.current_width / original_page_width) + 'px', 
@@ -349,7 +363,9 @@ const PositionLabel2 = (props) => {
   return (
     <div className="pad2__label">
       <ImageBackground source = {pad_image_2} style={pad2_background_image_style}>
-        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width}/>
+        {/* <UpdateGenMediaPad1 current_height = {props.current_height} current_width = {props.current_width} opacity = {0.0}/>
+        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {1.0}/> */}
+        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {pad2_opacity}/>
         <DisplayMetric3 current_height = {props.current_height} current_width = {props.current_width}/>
         <DisplayMetric4 current_height = {props.current_height} current_width = {props.current_width}/>
         <svg >
@@ -394,7 +410,7 @@ function X1_label(props) {
 
 
   return (
-    <h1 className = 'x1_label' style = {x1_label_style}> Rhythmic Complexity Level <br/> Latent Dimension = 0</h1>
+    <h1 className = 'x1_label' style = {x1_label_style}>Latent Dimension = 0</h1>
   );
 }
 
@@ -405,7 +421,7 @@ function Y1_label(props) {
                             }
 
   return (
-    <h1 className = 'y1_label' style = {y1_label_style}> Note Range Level <br/> Latent Dimension = 1</h1>
+    <h1 className = 'y1_label' style = {y1_label_style}> Latent Dimension = 1</h1>
   );
 
 }
@@ -417,7 +433,7 @@ function X2_label(props) {
                             }
   
   return (
-    <h1 className = 'x2_label' style = {x2_label_style}>Note Density Level <br/> Latent Dimension = 2</h1>
+    <h1 className = 'x2_label' style = {x2_label_style}>Latent Dimension = 2</h1>
   );
 }
 
@@ -428,7 +444,7 @@ function Y2_label(props){
                             }
   
   return (
-    <h1 className = 'y2_label' style = {y2_label_style}>Average Pitch Interval Level <br/> Latent Dimension = 3</h1>
+    <h1 className = 'y2_label' style = {y2_label_style}>Latent Dimension = 3</h1>
   );
 }
 
@@ -533,6 +549,7 @@ function Audio_Player_Source(props){
 function ImageComponentGeneratedMusic_Pad1(props){  
   const image_generated_music1_style = {top: (280 * props.current_height / original_page_height) + 'px', 
                                       left:(1350 * props.current_width / original_page_width) + 'px',
+                                      opacity: props.opacity,
                                       }
 
   return (
@@ -542,9 +559,24 @@ function ImageComponentGeneratedMusic_Pad1(props){
   );
 };
 
+// class ImageComponentGeneratedMusic_Pad1 extends React.Component { 
+//   render(){
+//     return (
+//       <div className="image_generated_music1" style = {{top: (280 * this.props.current_height / original_page_height) + 'px', 
+//                                                         left:(1350 * this.props.current_width / original_page_width) + 'px',
+//                                                         opacity: this.props.opacity,
+//                                                         }}
+//       >
+//         <img src={`${process.env.PUBLIC_URL}/pianoroll_files/` + this.props.name} width={550 * this.props.current_width / original_page_width} height={192 * this.props.current_height / original_page_height}/>
+//       </div>
+//     );
+//   }
+// };
+
 function ImageComponentGeneratedMusic_Pad2(props){  
-  const image_generated_music2_style = {top: (530 * props.current_height / original_page_height) + 'px', 
+  const image_generated_music2_style = {top: (370 * props.current_height / original_page_height) + 'px', 
                                       left:(1350 * props.current_width / original_page_width) + 'px',
+                                      opacity: props.opacity,
                                       }
 
   return (
@@ -571,7 +603,7 @@ function Audio_Player_Generated_Pad1(props){
 }
 
 function Audio_Player_Generated_Pad2(props){
-  const audio_player_generated2_style = {top: (730 * props.current_height / original_page_height) + 'px', 
+  const audio_player_generated2_style = {top: (600 * props.current_height / original_page_height) + 'px', 
                                     left:(1430 * props.current_width / original_page_width) + 'px',
                                     width: (400 * props.current_width / original_page_width) + 'px',
                                     height: (50 * props.current_width / original_page_width) + 'px',
@@ -602,12 +634,45 @@ function UpdateGenMediaPad1(props){
 
   return(
     <div className = "updateGenMedia1">
-      <ImageComponentGeneratedMusic_Pad1 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width}/>
+      <ImageComponentGeneratedMusic_Pad1 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width} opacity = {props.opacity}/>
       <Audio_Player_Generated_Pad1 name = {gen_mp3_file_name} current_height = {props.current_height} current_width = {props.current_width}/>
     </div>
   );
   
 }
+
+// class UpdateGenMediaPad1 extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {opacity: props.opacity};  
+//   }
+
+//   componentWillReceiveProps(nextProps) {
+//     if (nextProps.logged_in !== this.state.logged_in) {
+//       this.setState({ logged_in: nextProps.logged_in });
+//     }
+//   }
+
+//   render(){
+//       var metric1_quantized = Math.floor(metric1 / 30) + 1; 
+//       var metric2_quantized = Math.floor(metric2 / 30) + 1; 
+//       var metric3_quantized = Math.floor(metric3 / 30) + 1; 
+//       var metric4_quantized = Math.floor(metric4 / 30) + 1; 
+
+//       metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
+//       metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
+
+//       var gen_pianoroll_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized +".png";
+
+//       var gen_mp3_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized + ".mp3";
+//     return(
+//       <div className = "updateGenMedia1">
+//         <ImageComponentGeneratedMusic_Pad1 name = {gen_pianoroll_file_name} current_height = {this.props.current_height} current_width = {this.props.current_width} opacity = {this.props.opacity}/>
+//         <Audio_Player_Generated_Pad1 name = {gen_mp3_file_name} current_height = {this.props.current_height} current_width = {this.props.current_width}/>
+//       </div>
+//     );
+//   }
+// }
 
 function UpdateGenMediaPad2(props){
 
@@ -625,7 +690,7 @@ function UpdateGenMediaPad2(props){
 
   return(
     <div className = "updateGenMedia2">
-      <ImageComponentGeneratedMusic_Pad2 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width} />
+      <ImageComponentGeneratedMusic_Pad2 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width} opacity = {props.opacity}/>
       <Audio_Player_Generated_Pad2 name = {gen_mp3_file_name} current_height = {props.current_height} current_width = {props.current_width} />
     </div>
   );
@@ -667,6 +732,9 @@ class CreateContact extends React.Component {
 
         <Pad1 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
         <Pad2 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
+
+        {/* <UpdateGenMediaPad1 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth} opacity = {pad1_opacity}/> */}
+        {/* <UpdateGenMediaPad2 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth} opacity = {pad2_opacity}/> */}
 
         <X1_label current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
         <Y1_label current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
