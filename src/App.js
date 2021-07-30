@@ -5,10 +5,7 @@ import pad_image_1 from "./color_2d_plot1_without_LSR.png";
 import pad_image_2 from "./color_2d_plot2_without_LSR.png";
 import image_architecture from "./figure_without_LSR.png";
 import ReactAudioPlayer from 'react-audio-player';
-import { ImageBackground, Text, TextPropTypes} from "react-native";
-import { useState, useEffect } from 'react';
-import { render } from '@testing-library/react';
-
+import {ImageBackground} from "react-native";
 
 var if_LSR = false;
 
@@ -22,16 +19,6 @@ var source_mp3_file_name = "test_midi_original.mp3";
 
 var original_page_width = 1920;
 var original_page_height = 906;
-
-
-var current_page_width = 0;
-var current_page_height = 0;
-
-var width_scale_coeff = 0;
-var height_scale_coeff = 0;
-
-var pad1_opacity = 0.5;
-var pad2_opacity = 1.0;
 
 // ******************************* General Material / Big Text / Headers **********************************************
 
@@ -145,7 +132,6 @@ function TextInput(props){
   return (
       <h1 className = 'text_input' style = {text_input_style}> Input MIDI </h1>  
   );
-
 };
 
 function TextOutputVariations(props){
@@ -173,7 +159,6 @@ function ImageComponentArchitecture(props){
   );
 
 };
-
 
 function TextReference(props){
 
@@ -208,12 +193,11 @@ class Pads extends React.Component{
   render(){
     return(
       <div>
-        <Pad1/>
-        <Pad2/>
+        <Pad1 doTheUpdate={this.props.doTheUpdateEvent} current_height = {this.props.current_height} current_width = {this.props.current_width}/>
+        <Pad2 doTheUpdate={this.props.doTheUpdateEvent} current_height = {this.props.current_height} current_width = {this.props.current_width}/>
       </div>
     );
   }
-
 }
 
 // ******************************* Pad 1**********************************************
@@ -225,15 +209,14 @@ function Pad1(props) {
                       width: (300 * props.current_width / original_page_width) + 'px',
                       height: (300 * props.current_width / original_page_width) + 'px',
                       }
-
+  
   return (
     <ReactCursorPosition className="pad1"
       activationInteractionMouse={INTERACTIONS.CLICK}
       style = {pad1_style}
+      onPositionChanged = {props.doTheUpdate}
     >
       <PositionLabel1 current_height = {props.current_height} current_width = {props.current_width} />
-      
-      {/* <ImageComponent1 current_height = {props.current_height} current_width = {props.current_width}/> */}
     </ReactCursorPosition>
   );
 }
@@ -259,9 +242,7 @@ const PositionLabel1 = (props) => {
   if(isActive == true){
     metric1 = Math.floor(x / props.current_width * original_page_width);
     metric2 = Math.floor(y / props.current_width * original_page_width);
-    pad1_opacity = 1.0;
-    pad2_opacity = 0.01;
-  };
+  }
 
   const pad1_background_image_style = {height: (287 * props.current_width / original_page_width) + 'px', 
                                       width:(287 * props.current_width / original_page_width) + 'px',
@@ -272,11 +253,9 @@ const PositionLabel1 = (props) => {
   return (
     <div className="pad1__label">
       <ImageBackground source = {pad_image_1} style={pad1_background_image_style} >
-        {/* <UpdateGenMediaPad1 current_height = {props.current_height} current_width = {props.current_width} opacity = {1.0}/>
-        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {0.0}/> */}
         <DisplayMetric1 current_height = {props.current_height} current_width = {props.current_width}/>
         <DisplayMetric2 current_height = {props.current_height} current_width = {props.current_width}/>
-        <svg >
+        <svg height = {(287 * props.current_height / original_page_height) + ''} width = {(287 * props.current_width / original_page_width) + ''}>
           <circle cx={metric1 * props.current_width / original_page_width - 10 * props.current_width / original_page_width} cy={metric2 * props.current_width / original_page_width - 10 * props.current_width / original_page_width} r={10 * props.current_width / original_page_width} fill = 'red'/>
         </svg>
       </ImageBackground>
@@ -323,9 +302,9 @@ function Pad2(props) {
     <ReactCursorPosition className="pad2"
       activationInteractionMouse={INTERACTIONS.CLICK}
       style = {pad2_style}
+      onPositionChanged = {props.doTheUpdate}
     >
       <PositionLabel2 current_height = {props.current_height} current_width = {props.current_width}/>
-      {/* <ImageComponent2 current_height = {props.current_height} current_width = {props.current_width}/> */}
     </ReactCursorPosition>
   );
 }
@@ -351,9 +330,7 @@ const PositionLabel2 = (props) => {
   if(isActive == true){
     metric3 = Math.floor(x / props.current_width * original_page_width);
     metric4 = Math.floor(y / props.current_width * original_page_width);
-    pad1_opacity = 0.01;
-    pad2_opacity = 1.0;
-  };
+  }
 
   const pad2_background_image_style = {height: (287 * props.current_width / original_page_width) + 'px', 
                                       width:(287 * props.current_width / original_page_width) + 'px',
@@ -363,12 +340,9 @@ const PositionLabel2 = (props) => {
   return (
     <div className="pad2__label">
       <ImageBackground source = {pad_image_2} style={pad2_background_image_style}>
-        {/* <UpdateGenMediaPad1 current_height = {props.current_height} current_width = {props.current_width} opacity = {0.0}/>
-        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {1.0}/> */}
-        <UpdateGenMediaPad2 current_height = {props.current_height} current_width = {props.current_width} opacity = {pad2_opacity}/>
         <DisplayMetric3 current_height = {props.current_height} current_width = {props.current_width}/>
         <DisplayMetric4 current_height = {props.current_height} current_width = {props.current_width}/>
-        <svg >
+        <svg height = {(287 * props.current_height / original_page_height) + ''} width = {(287 * props.current_width / original_page_width) + ''}>
           <circle cx={metric3 * props.current_width / original_page_width - 10 * props.current_width / original_page_width} cy={metric4 * props.current_width / original_page_width - 10 * props.current_width / original_page_width} r={10 * props.current_width / original_page_width} fill = 'red'/>
         </svg>
       </ImageBackground>
@@ -410,13 +384,13 @@ function X1_label(props) {
 
 
   return (
-    <h1 className = 'x1_label' style = {x1_label_style}>Latent Dimension = 0</h1>
+    <h1 className = 'x1_label' style = {x1_label_style}> Latent Dimension = 0</h1>
   );
 }
 
 function Y1_label(props) {
   const y1_label_style = {top: (475 * props.current_height / original_page_height) + 'px', 
-                            left:(500 * props.current_width / original_page_width) + 'px',
+                            left:(510 * props.current_width / original_page_width) + 'px',
                             fontSize: (16 * props.current_width / original_page_width) + 'px',
                             }
 
@@ -433,18 +407,18 @@ function X2_label(props) {
                             }
   
   return (
-    <h1 className = 'x2_label' style = {x2_label_style}>Latent Dimension = 2</h1>
+    <h1 className = 'x2_label' style = {x2_label_style}> Latent Dimension = 2</h1>
   );
 }
 
 function Y2_label(props){
   const y2_label_style = {top: (475 * props.current_height / original_page_height) + 'px', 
-                            left:(900 * props.current_width / original_page_width) + 'px',
+                            left:(880 * props.current_width / original_page_width) + 'px',
                             fontSize: (16 * props.current_width / original_page_width) + 'px',
                             }
   
   return (
-    <h1 className = 'y2_label' style = {y2_label_style}>Latent Dimension = 3</h1>
+    <h1 className = 'y2_label' style = {y2_label_style}> Latent Dimension = 3</h1>
   );
 }
 
@@ -547,9 +521,8 @@ function Audio_Player_Source(props){
 
 // ************************************** Generated Music Pianoroll and Audio Material ****************************************
 function ImageComponentGeneratedMusic_Pad1(props){  
-  const image_generated_music1_style = {top: (280 * props.current_height / original_page_height) + 'px', 
+  const image_generated_music1_style = {top: (370 * props.current_height / original_page_height) + 'px', 
                                       left:(1350 * props.current_width / original_page_width) + 'px',
-                                      opacity: props.opacity,
                                       }
 
   return (
@@ -559,35 +532,9 @@ function ImageComponentGeneratedMusic_Pad1(props){
   );
 };
 
-// class ImageComponentGeneratedMusic_Pad1 extends React.Component { 
-//   render(){
-//     return (
-//       <div className="image_generated_music1" style = {{top: (280 * this.props.current_height / original_page_height) + 'px', 
-//                                                         left:(1350 * this.props.current_width / original_page_width) + 'px',
-//                                                         opacity: this.props.opacity,
-//                                                         }}
-//       >
-//         <img src={`${process.env.PUBLIC_URL}/pianoroll_files/` + this.props.name} width={550 * this.props.current_width / original_page_width} height={192 * this.props.current_height / original_page_height}/>
-//       </div>
-//     );
-//   }
-// };
-
-function ImageComponentGeneratedMusic_Pad2(props){  
-  const image_generated_music2_style = {top: (370 * props.current_height / original_page_height) + 'px', 
-                                      left:(1350 * props.current_width / original_page_width) + 'px',
-                                      opacity: props.opacity,
-                                      }
-
-  return (
-    <div className="image_generated_music2" style = {image_generated_music2_style}>
-      <img src={`${process.env.PUBLIC_URL}/pianoroll_files/` + props.name} width={550 * props.current_width / original_page_width} height={192 * props.current_height / original_page_height}/>
-    </div>
-  );
-};
 
 function Audio_Player_Generated_Pad1(props){
-  const audio_player_generated1_style = {top: (478 * props.current_height / original_page_height) + 'px', 
+  const audio_player_generated1_style = {top: (600 * props.current_height / original_page_height) + 'px', 
                                     left:(1430 * props.current_width / original_page_width) + 'px',
                                     width: (400 * props.current_width / original_page_width) + 'px',
                                     height: (50 * props.current_width / original_page_width) + 'px',
@@ -602,107 +549,15 @@ function Audio_Player_Generated_Pad1(props){
   );
 }
 
-function Audio_Player_Generated_Pad2(props){
-  const audio_player_generated2_style = {top: (600 * props.current_height / original_page_height) + 'px', 
-                                    left:(1430 * props.current_width / original_page_width) + 'px',
-                                    width: (400 * props.current_width / original_page_width) + 'px',
-                                    height: (50 * props.current_width / original_page_width) + 'px',
-                                  }
-  return (
-    <ReactAudioPlayer
-        className = "audio_player_generated2"
-        src = {`${process.env.PUBLIC_URL}/mp3_files/` + props.name}
-        controls
-        style = {audio_player_generated2_style}
-    />
-  );
-}
-
-function UpdateGenMediaPad1(props){
-
-  var metric1_quantized = Math.floor(metric1 / 30) + 1; 
-  var metric2_quantized = Math.floor(metric2 / 30) + 1; 
-  var metric3_quantized = Math.floor(metric3 / 30) + 1; 
-  var metric4_quantized = Math.floor(metric4 / 30) + 1; 
-
-  metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-  metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-
-  var gen_pianoroll_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized +".png";
-
-  var gen_mp3_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized + ".mp3";
-
-  return(
-    <div className = "updateGenMedia1">
-      <ImageComponentGeneratedMusic_Pad1 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width} opacity = {props.opacity}/>
-      <Audio_Player_Generated_Pad1 name = {gen_mp3_file_name} current_height = {props.current_height} current_width = {props.current_width}/>
-    </div>
-  );
-  
-}
-
-// class UpdateGenMediaPad1 extends React.Component{
-//   constructor(props){
-//     super(props);
-//     this.state = {opacity: props.opacity};  
-//   }
-
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.logged_in !== this.state.logged_in) {
-//       this.setState({ logged_in: nextProps.logged_in });
-//     }
-//   }
-
-//   render(){
-//       var metric1_quantized = Math.floor(metric1 / 30) + 1; 
-//       var metric2_quantized = Math.floor(metric2 / 30) + 1; 
-//       var metric3_quantized = Math.floor(metric3 / 30) + 1; 
-//       var metric4_quantized = Math.floor(metric4 / 30) + 1; 
-
-//       metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-//       metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-
-//       var gen_pianoroll_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized +".png";
-
-//       var gen_mp3_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized + ".mp3";
-//     return(
-//       <div className = "updateGenMedia1">
-//         <ImageComponentGeneratedMusic_Pad1 name = {gen_pianoroll_file_name} current_height = {this.props.current_height} current_width = {this.props.current_width} opacity = {this.props.opacity}/>
-//         <Audio_Player_Generated_Pad1 name = {gen_mp3_file_name} current_height = {this.props.current_height} current_width = {this.props.current_width}/>
-//       </div>
-//     );
-//   }
-// }
-
-function UpdateGenMediaPad2(props){
-
-  var metric1_quantized = Math.floor(metric1 / 30) + 1; 
-  var metric2_quantized = Math.floor(metric2 / 30) + 1; 
-  var metric3_quantized = Math.floor(metric3 / 30) + 1; 
-  var metric4_quantized = Math.floor(metric4 / 30) + 1; 
-
-  metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-  metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
-
-  var gen_pianoroll_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized +".png";
-
-  var gen_mp3_file_name = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized + ".mp3";
-
-  return(
-    <div className = "updateGenMedia2">
-      <ImageComponentGeneratedMusic_Pad2 name = {gen_pianoroll_file_name} current_height = {props.current_height} current_width = {props.current_width} opacity = {props.opacity}/>
-      <Audio_Player_Generated_Pad2 name = {gen_mp3_file_name} current_height = {props.current_height} current_width = {props.current_width} />
-    </div>
-  );
-  
-}
 
 // ************************************** App ****************************************
 
 class CreateContact extends React.Component {
   state = {
     windowHeight: undefined,
-    windowWidth: undefined
+    windowWidth: undefined,
+    gen_pianoroll_file_name: '',
+    gen_mp3_file_name: '',
   }
 
   handleResize = () => this.setState({
@@ -723,18 +578,35 @@ class CreateContact extends React.Component {
   current_page_width = this.state.windowWidth;
   current_page_height = this.state.windowHeight;
 
+  doTheUpdate(){
+
+    var metric1_quantized = Math.floor(metric1 / 30) + 1; 
+    var metric2_quantized = Math.floor(metric2 / 30) + 1; 
+    var metric3_quantized = Math.floor(metric3 / 30) + 1; 
+    var metric4_quantized = Math.floor(metric4 / 30) + 1; 
+
+    metric2_quantized = 11 - metric2_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
+    metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
+
+    var gen_pianoroll_filename = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized +".png";
+
+    var gen_mp3_filename = "midi_" + metric1_quantized + "_" + metric2_quantized + "_" + metric3_quantized + "_" + metric4_quantized + ".mp3";
+
+    this.setState({gen_pianoroll_file_name: gen_pianoroll_filename});
+    this.setState({gen_mp3_file_name: gen_mp3_filename});
+  }
+
   render() {
     return (
       <div>
-        {/* <Pad1 /> */}
+       
         <TextTitle current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
         <TextLatentValuesLabel current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
 
-        <Pad1 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
-        <Pad2 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
+        <Pads doTheUpdateEvent = {this.doTheUpdate.bind(this)} current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
 
-        {/* <UpdateGenMediaPad1 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth} opacity = {pad1_opacity}/> */}
-        {/* <UpdateGenMediaPad2 current_height = {this.state.windowHeight} current_width = {this.state.windowWidth} opacity = {pad2_opacity}/> */}
+        <ImageComponentGeneratedMusic_Pad1 name = {this.state.gen_pianoroll_file_name} current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
+        <Audio_Player_Generated_Pad1 name = {this.state.gen_mp3_file_name} current_height = {this.state.windowHeight} current_width = {this.state.windowWidth} />
 
         <X1_label current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
         <Y1_label current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
@@ -757,6 +629,7 @@ class CreateContact extends React.Component {
 
         <TextReference current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
         <TextSignature current_height = {this.state.windowHeight} current_width = {this.state.windowWidth}/>
+        
       </div>
     );
   }
@@ -767,7 +640,6 @@ function App() {
   
   return (
     <div className="App">
-      {/* <Pads/> */}
       <CreateContact />
     </div>
   );
