@@ -73,7 +73,7 @@ function DisplayMetric1(props){
   var metric1_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
 
   return (
-      <h1 className = 'display_metric1' style = {display_metric_1_style}> Rhy Complx:  {(metric1_latent_values[metric1_quantized - 1] * (4 / 1.5)).toFixed(1)}</h1>
+      <h1 className = 'display_metric1' style = {display_metric_1_style}> Dim 0:  {(metric1_latent_values[metric1_quantized - 1] * (4 / 1.5)).toFixed(1)}</h1>
   );
 };
 
@@ -90,7 +90,7 @@ function DisplayMetric2(props){
   var metric2_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
 
   return (
-      <h1 className = 'display_metric2' style = {display_metric_2_style}> Note Range:  {metric2_latent_values[metric2_quantized - 1].toFixed(1)}</h1>
+      <h1 className = 'display_metric2' style = {display_metric_2_style}> Dim 1:  {metric2_latent_values[metric2_quantized - 1].toFixed(1)}</h1>
   );
 };
 
@@ -105,7 +105,7 @@ function DisplayMetric3(props){
   var metric3_latent_values = [-1.5, -1.2, -0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.2, 1.5]; // from -1.5 to 1.5
   
   return (
-      <h1 className = 'display_metric3' style = {display_metric_3_style}> Note Density:  {(metric3_latent_values[metric3_quantized - 1] * (2 / 1.5)).toFixed(1)}</h1>
+      <h1 className = 'display_metric3' style = {display_metric_3_style}> Dim 2:  {(metric3_latent_values[metric3_quantized - 1] * (2 / 1.5)).toFixed(1)}</h1>
   );
 };
 
@@ -131,7 +131,7 @@ function DisplayMetric4(props){
   }
 
   return (
-      <h1 className = 'display_metric4' style = {display_metric_4_style}> Avg Pitch Interval:  {(metric4_latent_values[metric4_quantized - 1] * (scale_coeff / 1.5)).toFixed(1)}</h1>
+      <h1 className = 'display_metric4' style = {display_metric_4_style}> Dim 3:  {(metric4_latent_values[metric4_quantized - 1] * (scale_coeff / 1.5)).toFixed(1)}</h1>
   );
 };
 
