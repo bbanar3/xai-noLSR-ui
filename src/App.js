@@ -439,7 +439,7 @@ function X2_label(props) {
 
 function Y2_label(props){
   const y2_label_style = {top: (475 * props.current_height / original_page_height) + 'px', 
-                            left:(880 * props.current_width / original_page_width) + 'px',
+                            left:(900 * props.current_width / original_page_width) + 'px',
                             fontSize: (16 * props.current_width / original_page_width) + 'px',
                             }
   
