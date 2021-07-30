@@ -85,7 +85,7 @@
   font: 16px/1.5 Helvetica, Arial; */
   font-weight: bold;
   text-align: center;
-  color: red;
+  color: black;
 }
 
 .y1_label {
@@ -96,7 +96,7 @@
   font-weight: bold;
   transform: rotate(-90deg);
   text-align: center;
-  color: rgba(240, 138, 54, 0.726);
+  color: black;
 }
 
 .x2_label {
@@ -106,7 +106,7 @@
   font: 16px/1.5 Helvetica, Arial; */
   font-weight: bold;
   text-align: center;
-  color: rgb(229, 233, 8);
+  color: black;
 }
 
 .y2_label {
@@ -117,7 +117,7 @@
   font-weight: bold;
   transform: rotate(-90deg);
   text-align: center;
-  color: rgb(16, 170, 241);
+  color: black;
 }
 
 .pad1_x0 {
