@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import ReactCursorPosition, { INTERACTIONS } from 'react-cursor-position';
-import pad1_training_cont from "./color_2d_plot1_with_LSR.png";
+import pad1_training_cont from "./color_2d_plot1_without_LSR.png";
 import pad1_rc from "./Plot1_rhythmic_complexity.png";
 import pad1_nr from "./Plot1_note_range.png";
-import pad2_training_cont from "./color_2d_plot2_with_LSR.png";
+import pad2_training_cont from "./color_2d_plot2_without_LSR.png";
 import pad2_nd from "./Plot2_note_density.png";
 import pad2_aij from "./Plot2_avg_int.png";
 import image_architecture from "./figure_without_LSR.png";
