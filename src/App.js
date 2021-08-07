@@ -28,6 +28,7 @@ var original_page_height = 906;
 var pad_image_1 = pad1_rc;
 var pad_image_2 = pad2_nd;
 
+
 // ******************************* Figure Toggles *********************************************************************
 
 
