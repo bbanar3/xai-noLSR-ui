@@ -134,6 +134,13 @@
   font: 16px/1.5 Helvetica, Arial; */
 }
 
+.pad1_y0 {
+  position: fixed;
+  /* top: 320px;
+  left: 580px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
 .pad1_y1 {
   position: fixed;
   /* top: 320px;
@@ -155,11 +162,26 @@
   font: 16px/1.5 Helvetica, Arial; */
 }
 
+.pad2_y0 {
+  position: fixed;
+  /* top: 320px;
+  left: 980px;
+  font: 16px/1.5 Helvetica, Arial; */
+}
+
 .pad2_y1 {
   position: fixed;
   /* top: 320px;
   left: 980px;
   font: 16px/1.5 Helvetica, Arial; */
+}
+
+.pad1_2d_display_title {
+  position: fixed;
+}
+
+.pad2_2d_display_title {
+  position: fixed;
 }
 
 .image_architecture {
