@@ -376,7 +376,7 @@ function ImageComponentArchitecture(props) {
   }
   return (
     <div className="image_architecture" style={image_architecture_style}>
-      <img src={props.name} width={943 * props.current_width / original_page_width} height={264 * props.current_height / original_page_height} />
+      <img src={props.name} width={948 * props.current_width / original_page_width} height={224 * props.current_height / original_page_height} />
     </div>
   );
 
