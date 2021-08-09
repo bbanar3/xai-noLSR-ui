@@ -327,13 +327,13 @@ function DisplayMetric4(props) {
 
   metric4_quantized = 11 - metric4_quantized; //Y axis works in the opposite direction with 10 discrete levels, so 10 -
 
-  var metric4_latent_values = [-0.5, 0.05555556, 0.61111111, 1.16666667, 1.72222222, 2.27777778, 2.83333333, 3.38888889, 3.94444444, 4.5]; // Non LSR, from -1.5 to 1.5
+  var metric4_latent_values = [-4, -2.44, -0.88, 0.66, 2.22, 3.77, 5.33, 6.88, 8.44, 10]; // Non LSR, from -1.5 to 1.5
 
   if (if_LSR) {
-    var scale_coeff = 3.0;
+    var scale_coeff = 1.0;
   }
   else {
-    var scale_coeff = 4.5;
+    var scale_coeff = 1.0;
   }
 
   return (
@@ -737,7 +737,7 @@ function Pad2_Y0(props) {
     fontWeight: 'bold',
   }
   return (
-    <h1 className='pad2_y0' style={pad2_y0_style}>-1.5</h1>
+    <h1 className='pad2_y0' style={pad2_y0_style}>-4.0</h1>
   );
 }
 
@@ -749,7 +749,7 @@ function Pad2_Y1(props) {
     fontWeight: 'bold',
   }
   return (
-    <h1 className='pad2_y1' style={pad2_y1_style}>13.5</h1>
+    <h1 className='pad2_y1' style={pad2_y1_style}>10.0</h1>
   );
 }
 
