@@ -400,7 +400,7 @@ function TextSignature(props) {
 
   const text_signature_style = {
     top: (865 * props.current_height / original_page_height) + 'px',
-    left: (1720 * props.current_width / original_page_width) + 'px',
+    left: (1800 * props.current_width / original_page_width) + 'px',
     font: (18 * props.current_width / original_page_width) + 'px Helvetica, Arial',
     fontWeight: 'bold',
   }
