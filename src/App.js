@@ -406,7 +406,7 @@ function TextSignature(props) {
   }
 
   return (
-    <h1 className='text_signature' style={text_signature_style}> 2021 </h1>
+    <h1 className='text_signature' style={text_signature_style}> 2021. </h1>
   );
 };
 
