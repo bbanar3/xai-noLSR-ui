@@ -385,7 +385,7 @@ function ImageComponentArchitecture(props) {
 function TextReference(props) {
 
   const text_reference_style = {
-    top: (825 * props.current_height / original_page_height) + 'px',
+    top: (845 * props.current_height / original_page_height) + 'px',
     left: (20 * props.current_width / original_page_width) + 'px',
     font: (18 * props.current_width / original_page_width) + 'px Helvetica, Arial',
     fontWeight: 'bold',
