@@ -392,7 +392,7 @@ function TextReference(props) {
   }
 
   return (
-    <h1 className='text_reference' style={text_reference_style}> Augmentation of Pati, Ashis and Lerch, Alexander. (2019). Latent Space Regularization for Explicit Control of Musical Attributes.  </h1>
+    <h1 className='text_reference' style={text_reference_style}> Augmentation of Ashis Pati and Alexander Lerch's "Latent Space Regularization for Explicit Control of Musical Attributes" (2019) and <br /> "Attribute-based Regularization of Latent Spaces for Variational Auto-Encoders" (2020).  </h1>
   );
 };
 
