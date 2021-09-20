@@ -202,7 +202,7 @@ class ToggleSwitch_Pad2 extends React.Component {
     else if (val == 'ND Surface Map') {
       pad_image_2 = pad2_nd;
     }
-    else if (val == 'API Surface Map') {
+    else if (val == 'AIJ Surface Map') {
       pad_image_2 = pad2_aij;
     }
     this.props.update2DFigures2();
@@ -903,7 +903,7 @@ class CreateContact extends React.Component {
         <TextLatentValuesLabel current_height={this.state.windowHeight} current_width={this.state.windowWidth} />
 
         <ToggleSwitch_Pad1 update2DFigures1={this.doTheUpdate.bind(this)} values={['Train Data Contr', 'RC Surface Map', 'NR Surface Map']} selected="RC Surface Map" current_height={this.state.windowHeight} current_width={this.state.windowWidth} />
-        <ToggleSwitch_Pad2 update2DFigures2={this.doTheUpdate.bind(this)} values={['Train Data Contr', 'ND Surface Map', 'API Surface Map']} selected="ND Surface Map" current_height={this.state.windowHeight} current_width={this.state.windowWidth} />
+        <ToggleSwitch_Pad2 update2DFigures2={this.doTheUpdate.bind(this)} values={['Train Data Contr', 'ND Surface Map', 'AIJ Surface Map']} selected="ND Surface Map" current_height={this.state.windowHeight} current_width={this.state.windowWidth} />
 
         <Pads doTheUpdateEvent={this.doTheUpdate.bind(this)} current_height={this.state.windowHeight} current_width={this.state.windowWidth} pad1_image_name={this.state.pad1_image_name} pad2_image_name={this.state.pad2_image_name} />
 
